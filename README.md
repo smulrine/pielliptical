@@ -13,17 +13,20 @@ Older versions of Raspbian may work but they will most likely require to have Bl
 The accelerometer should be attached to one of the footrests and oriented in such a way that the acceleration is detected on the X-axis. (For an ADXL345 with pins at both ends, it should be perpendicular to the footrest.) I also have the Pi taped securely to the underside of the footrest along with a nano-suction power bank.
 
 (Optionally) update the Pi:
-```apt-get update
+```
+apt-get update
 apt-get dist-upgrade
 ```
 
 Install the required packages:
-```apt-get -y install python3-pip
+```
+apt-get -y install python3-pip
 pip3 install adafruit-circuitpython-adxl34x
 ```
 
-Place *pielliptical.py* in /usr/local/bin and make it executable:
-```mv pielliptical.py /usr/local/bin
+Place *pielliptical.py* in */usr/local/bin* and make it executable:
+```
+mv pielliptical.py /usr/local/bin
 chmod 755 /usr/local/bin/pielliptical.py
 ```
 
@@ -38,8 +41,8 @@ The device has been tested successfully with the following configurations:
 - Zwift on Wileyfox Swift 2X running LineageOS 15.1
 
 To have the service run automatically on boot, edit */etc/rc.local* and insert the following before *exit 0*:
-To 
-```/usr/local/bin/pielliptical.py > /dev/null 2>&1
+```
+/usr/local/bin/pielliptical.py > /dev/null 2>&1
 ```
 
 I also added ``tvservice --off`` above this line as I don't need HDMI output.
