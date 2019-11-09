@@ -10,7 +10,7 @@ This GATT server uses acceleration data from the ADXL345 to provide a Running Sp
 Older versions of Raspbian may work but they will most likely require to have Bluez updated. The code may also work perfectly well on a different model of Raspberry Pi with a BLE dongle.
 
 ## Setup
-The accelerometer should be attached to one of the footrests and oriented in such a way that the acceleration is detected on the X-axis. (For an ADXL345 with pins at both ends, it should be perpendicular to the footrest.) I also have the Pi taped securely to the underside of the footrest along with a nano-suction power bank.
+The accelerometer should be attached to one of the footrests and oriented in such a way that the acceleration is detected on the X-axis. (For both models of ADXL345 I have tried - one with pins at both ends, and one with a single row of pins - the pins should be parallel with the footrest.) I also have the Pi taped securely to the underside of the footrest along with a nano-suction power bank.
 
 (Optionally) update the Pi:
 ```
@@ -50,8 +50,6 @@ I also added ``tvservice --off`` above this line as I don't need HDMI output.
 ## Troubleshooting
 If the raspberrypi device still hasn't shown up in Zwift after a minute or so, try killing Zwift Companion entirely and restarting it, or restarting the Android device it is running on. (BLE seems to be less reliable than ANT+ in this regard.)
 
-Some kind of minor trauma to the Pi while in use (falls off footrest, gets kicked) may cause it to stop transmitting pace changes, leaving your avatar continuing to run at the last recorded pace. It will be necessary to unpair the device to get it to stop. It should still be possible to re-pair it, probably after restarting the Pi. (I only have the accelerometer connected with breadboard cables; soldering the wires would make it more robust.)
-
 ## Advanced Usage
 - Configure Pi to run entirely in read-only mode so it can be powered off safely
 - Disable wi-fi entirely for faster startup
@@ -60,6 +58,9 @@ Some kind of minor trauma to the Pi while in use (falls off footrest, gets kicke
 It should be possible to complete running workouts successfully with a minimum of practice.
 
 I estimated that a cadence of 120 steps per minute was equivalent in effort to a 6-minute mile. It is suitably hard to maintain for a long period of time, even if it is easier than actually running due to the non-impact nature of an elliptical trainer. A simple formula is applied to the detected cadence to make it look more like an actual running cadence.
+
+## Bugs
+- There is probably something wrong with the Bluetooth advertisement, since the Pi cannot be detected in Zwift on Windows using a Bluetooth adapter, and is slow to be detected from Zwift on Android or via Zwift Companion.
 
 ## Licence
 The code in this repository is based on code taken from the [BlueZ](http://www.bluez.org/) project. It is licensed under GPL 2.0.
