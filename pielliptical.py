@@ -349,6 +349,8 @@ class RSCMeasurementChrc(Characteristic):
                 service)
         self.notifying = False
         # change this to True to test elliptical speed without BLE connection
+        # and uncomment the following line
+        #GLib.timeout_add(10, self.rsc_msrmt_cb)
 
     def rsc_msrmt_cb(self):
         changed = False
@@ -390,6 +392,14 @@ class RSCMeasurementChrc(Characteristic):
                     changed = True
                 self.t0 = t1
                 self.max_acceleration = 0
+        elif self.speed != 0:
+            t1 = milli_time()
+            if t1 - self.t0 > 2000:
+                self.spm = 0
+                self.speed = 0
+                changed = True
+                self.t0 = t1
+                print('\033cSpeed: 0 mph')
         if changed:
             rsc_speed = self.speed * 114.44
             self.PropertiesChanged(GATT_CHRC_IFACE, { 'Value': [ dbus.Byte(0x00), dbus.Byte(int(rsc_speed) & 0xff), dbus.Byte((int(rsc_speed) >> 8) & 0xff), dbus.Byte(int(self.spm) & 0xff) ] }, [])
