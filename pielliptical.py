@@ -393,8 +393,10 @@ class RSCMeasurementChrc(Characteristic):
                 self.t0 = t1
                 self.max_acceleration = 0
         elif self.speed != 0:
+            # last detected moving
             t1 = milli_time()
             if t1 - self.t0 > 2000:
+                # last seen moving >2 seconds ago, presumed stopped
                 self.spm = 0
                 self.speed = 0
                 changed = True
